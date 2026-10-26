@@ -1,4 +1,4 @@
-# Radial Tree Discussion Interface — Reader Study (V4.8)
+# Radial Tree Discussion Interface — Reader Study (V4.8.2)
 
 An interactive, source-faithful radial-tree visualization for exploring conversation structure and observable textual cues in Reddit discussions. This repository includes a browser-based, two-condition **interface evaluation**, a separate practice case, and local JSON response export. Participants evaluate **the interface**, not the validity, importance, or scientific correctness of Reddit comments.
 
