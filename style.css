@@ -1,0 +1,316 @@
+:root{color-scheme:light;--ink:#162437;--muted:#657587;--line:#dfe6ee;--paper:#fff;--wash:#f5f8fb;--blue:#3778ab;--link:#168a79;--question:#d19437;--both:#8066b6;--missing:#9ba8b6;--quote:#c46d8e}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--wash)}
+button,input,select{font:inherit}button{cursor:pointer}a{color:#245d88;text-decoration:none}a:hover{text-decoration:underline}
+.app{display:flex;flex-direction:column;min-height:100vh}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;background:#fff;border-bottom:1px solid var(--line);min-height:78px}
+.brand{display:flex;align-items:center;gap:13px}.logo{background:#183550;border-radius:13px;width:43px;height:43px;display:grid;place-items:center;color:#fff;font-size:25px}
+h1{font-size:18px;margin:0;letter-spacing:-.025em}header .subtitle{font-size:12px;color:var(--muted);margin-top:3px}
+.header-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.top-status{font-size:12px;color:var(--muted);max-width:400px}
+button,.button{border:1px solid #d2dce6;background:#fff;border-radius:9px;color:#27435e;padding:9px 12px;font-size:12px;font-weight:650;display:inline-flex;gap:7px;align-items:center;justify-content:center;transition:background .12s,border .12s}
+button:hover,.button:hover{background:#edf3f8;text-decoration:none}button:focus-visible,.button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #8db9e1;outline-offset:2px}
+.button.primary,button.primary{background:#183550;color:#fff;border-color:#183550}.button.primary:hover,button.primary:hover{background:#234d72}
+input[type=file]{display:none}
+.layout{display:grid;grid-template-columns:285px minmax(0,1fr) 340px;flex:1;min-height:0;height:calc(100vh - 78px)}
+.left-panel,.right-panel{background:#fff;overflow-y:auto;min-height:0}.left-panel{border-right:1px solid var(--line);padding:21px 18px}.right-panel{border-left:1px solid var(--line);padding:20px}
+.section-kicker{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:750;color:#8290a0;margin:0 0 10px}
+label.control-label{font-size:12px;font-weight:650;display:block;margin:14px 0 6px;color:#42566c}
+select,input[type=text],input[type=search]{width:100%;border:1px solid #d7e0e9;border-radius:9px;background:#fff;padding:10px 11px;font-size:12px;color:var(--ink)}
+.case-list{display:grid;gap:8px}.case-item{text-align:left;display:block;width:100%;padding:11px;border:1px solid #e0e7ee;background:#fff;border-radius:11px}.case-item.active{border-color:#6b9cc1;background:#edf5fb;box-shadow:inset 3px 0 0 #3579a8}.case-item span{display:block;font-size:12px;font-weight:750;line-height:1.4}.case-item small{font-size:11px;color:var(--muted);display:block;margin-top:5px;font-weight:450}
+.sep{height:1px;background:var(--line);margin:18px 0}.counts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.stat{background:#f5f8fb;border-radius:10px;padding:10px 11px}.stat strong{font-size:18px;font-weight:760;display:block;font-variant-numeric:tabular-nums}.stat span{font-size:10px;color:var(--muted);display:block;margin-top:3px}
+.cue-buttons{display:grid;grid-template-columns:1fr 1fr;gap:7px}.cue-buttons button{justify-content:flex-start;text-align:left;font-weight:600;font-size:11px;padding:9px}.cue-buttons button.active{background:#e6f1f9;border-color:#7cb0d1}.swatch{border-radius:50%;width:9px;height:9px;display:inline-block;flex-shrink:0;background:var(--blue)}.swatch.link{background:var(--link)}.swatch.question{background:var(--question)}.swatch.both{background:var(--both)}.swatch.missing{background:var(--missing);border:1px solid #687888}.swatch.quote{background:var(--quote)}
+.note{font-size:11px;line-height:1.55;color:var(--muted)}.hint{background:#f4f8fb;border:1px solid #e4edf4;border-radius:10px;padding:12px;font-size:11px;line-height:1.55;color:#526579}
+.main{display:flex;flex-direction:column;overflow:hidden;min-height:0;min-width:0}.view-toolbar{background:#fff;display:flex;gap:10px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:12px 18px;flex-wrap:wrap;min-height:59px}
+.tab-group{display:flex;background:#eef3f7;border-radius:9px;padding:3px;gap:3px}.tab-group button{border:0;background:transparent;padding:7px 11px;color:#526a80}.tab-group button.active{background:white;box-shadow:0 1px 4px #ccd7e1;color:#163c5c}
+.toolbar-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.toolbar-controls label{font-size:11px;color:var(--muted);white-space:nowrap}.toolbar-controls select{padding:7px 9px;width:auto;min-width:116px}
+.tool-small{min-width:33px;padding:7px 9px}
+.view-area{position:relative;flex:1;min-height:0;overflow:hidden;background:radial-gradient(circle at 50% 49%,#fff 6%,#f5f9fc 100%)}
+#treeSvg{display:block;width:100%;height:100%;touch-action:none;cursor:grab}#treeSvg.dragging{cursor:grabbing}
+#treeSvg .rings circle{fill:none;stroke:#dce7ef;stroke-width:1;stroke-dasharray:3 7}
+#treeSvg .edges path{fill:none;stroke:#bac8d5;stroke-width:1.3;stroke-opacity:.7;vector-effect:non-scaling-stroke;pointer-events:none}
+#treeSvg .edges path.focused{stroke:#d38827;stroke-width:2.8;stroke-opacity:1}
+#treeSvg .edges path.dim{stroke-opacity:.09}
+#treeSvg .nodes circle.node{stroke:#fff;stroke-width:1.6;cursor:pointer;transition:stroke-width .12s,opacity .12s}
+#treeSvg .nodes circle.node:hover{stroke:#152e46;stroke-width:2.5}#treeSvg .nodes circle.node.selected{stroke:#122c45;stroke-width:3.5}
+#treeSvg .nodes circle.node.dim{opacity:.15}#treeSvg .nodes circle.node.hit{stroke:#da652d;stroke-width:3}
+#treeSvg .nodes circle.node.missing{fill:#fff;stroke:#8899aa;stroke-width:2.1;stroke-dasharray:2 2}#treeSvg .nodes circle.node.root{fill:#203f5b;stroke:white;stroke-width:3}
+#treeSvg .nodes circle.quote-ring{fill:none;stroke:var(--quote);stroke-width:1.6;stroke-dasharray:2 2;pointer-events:none}
+#treeSvg .nodes circle.collapse-ring{fill:none;stroke:#425a72;stroke-width:1.8;stroke-dasharray:4 2;pointer-events:none}
+#treeSvg text.svg-depth{fill:#97a6b6;font-size:10px;paint-order:stroke;stroke:white;stroke-width:3;pointer-events:none}
+.overlay-controls{position:absolute;right:17px;bottom:20px;display:flex;gap:6px;background:white;border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 8px 23px #19385812}
+.overlay-caption{position:absolute;left:18px;bottom:20px;max-width:310px;font-size:11px;color:#617487;background:#ffffffec;border:1px solid var(--line);border-radius:9px;padding:10px 12px;line-height:1.45;pointer-events:none}
+.tooltip{position:absolute;pointer-events:none;z-index:10;min-width:180px;max-width:295px;background:#17283b;box-shadow:0 8px 20px #0002;border-radius:9px;color:#fff;padding:9px 11px;font-size:11px;line-height:1.5;white-space:pre-line;display:none}
+.tooltip b{color:#d4e4f2}
+.info-title{font-size:19px;line-height:1.36;letter-spacing:-.02em;margin:2px 0 12px;overflow-wrap:anywhere}.breadcrumb{font-size:11px;color:var(--muted);margin:0 0 12px}.pills{display:flex;gap:5px;flex-wrap:wrap;margin:11px 0}.pill{display:inline-flex;padding:5px 8px;background:#eef3f7;border-radius:30px;font-size:10px;font-weight:650;color:#3b5a70}.pill.green{background:#e5f4ed;color:#167c66}.pill.amber{background:#fff1dc;color:#996417}.pill.purple{background:#f0eafa;color:#7253a3}.pill.grey{background:#eceff2;color:#66788a}
+.meta{display:grid;grid-template-columns:100px minmax(0,1fr);column-gap:10px;row-gap:9px;font-size:11px;line-height:1.5;margin:12px 0}.meta dt{color:#7c8b9b}.meta dd{margin:0;overflow-wrap:anywhere;color:#34475a}
+.comment-body{font-size:12px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;background:#f6f8fa;border:1px solid #e8edf2;border-radius:10px;padding:12px;margin-top:11px;max-height:42vh;overflow:auto}
+.reply-list{display:grid;gap:5px;margin-top:10px}.reply-list button{display:block;text-align:left;width:100%;line-height:1.45;font-weight:450;overflow:hidden}.reply-list button b{display:block;font-size:11px;color:#234e70}.reply-list button span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#627487;font-size:10px}.row-actions{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.subheading{font-weight:750;font-size:12px;margin:16px 0 9px}
+.reader-view{overflow:auto;height:100%;padding:18px 23px;max-width:100%;background:#f7f9fb}.thread-entry{margin:7px 0 7px 0;background:#fff;border:1px solid #e1e7ee;border-left:3px solid #b3c8d8;padding:10px 12px;border-radius:8px}.thread-entry strong{font-size:12px}.thread-entry .reader-meta{font-size:10px;color:var(--muted);margin:5px 0}.thread-entry .reader-body{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.6;max-height:150px;overflow:auto}.thread-entry .reader-actions{display:flex;justify-content:space-between;gap:10px;align-items:center}.thread-entry.selected{border-color:#9cbcd6;border-left-color:#2d719b;background:#f0f7fd}
+.reader-indent{margin-left:17px;padding-left:12px;border-left:1px solid #ccd8e3}.reader-roots{max-width:780px;margin:0 auto}
+.json-view{height:100%;overflow:auto;padding:22px;background:#172432;color:#e9f0f9}.json-view pre{white-space:pre-wrap;word-break:break-word;font-size:11px;line-height:1.55;margin:0;font-family:ui-monospace,"Cascadia Code",Consolas,monospace}
+.hidden{display:none!important}
+.empty{padding:20px;text-align:center;color:var(--muted);font-size:12px}.mobile-view-tip{display:none}
+@media(max-width:1190px){.layout{grid-template-columns:245px minmax(0,1fr) 290px}.left-panel{padding:16px 12px}.right-panel{padding:16px}.case-item span{font-size:11px}}
+@media(max-width:880px){.layout{height:auto;min-height:calc(100vh - 78px);grid-template-columns:220px minmax(0,1fr)}.right-panel{grid-column:1/-1;border-top:1px solid var(--line);max-height:370px}.view-area{min-height:560px}.left-panel{grid-row:1}.main{grid-row:1;min-height:620px}header{padding:12px}}
+@media(max-width:570px){header{align-items:flex-start;flex-direction:column}.layout{display:flex;flex-direction:column;height:auto}.left-panel{max-height:450px;border-right:0;border-bottom:1px solid var(--line)}.main{height:640px;min-height:640px}.view-area{min-height:430px}.right-panel{max-height:none}.overlay-caption{display:none}}
+/* Keep the visualization and both inspector columns within the desktop viewport. */
+@media(min-width:881px){
+  .app{height:100vh;min-height:0;overflow:hidden}
+  header{flex:0 0 78px}
+  .layout{flex:1 1 0;min-height:0;height:auto;overflow:hidden}
+  .left-panel,.right-panel,.main{min-height:0;height:100%}
+}
+
+/* Evaluation-only controls: same three-column layout and original comment inspector. */
+.study-banner{background:#eaf1f7;border-bottom:1px solid #c5d4e0;padding:10px 18px;font-size:12px;color:#28455d}
+.study-banner-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.study-meta{font-size:11px;color:#4e697e;margin-left:8px}
+.study-instructions{font-size:11px;color:#50677b;margin-top:3px}
+.study-actions{display:flex;align-items:center;gap:10px}
+.study-response{display:flex;gap:9px;flex-wrap:wrap;align-items:center;border-top:1px solid #cfdae4;margin-top:10px;padding-top:10px}
+.study-response label{font-size:11px;font-weight:700}
+.study-response textarea{flex:1 1 320px;min-height:48px;max-height:100px;padding:8px 10px;border:1px solid #bacad8;border-radius:8px;font:inherit;resize:vertical}
+.study-response select{width:auto;padding:8px}
+.study-done{margin:8px 0 0;font-weight:600}
+.study-mode .layout{height:auto;flex:1;min-height:0}
+.study-mode .app{height:100vh;min-height:0;overflow:hidden}
+.study-mode header{min-height:70px;flex:0 0 70px}
+.study-mode .left-panel .note{max-width:280px}
+.study-mode .view-toolbar{justify-content:flex-end}
+.study-mode .main{min-height:0}
+.study-mode #treeSvg .nodes circle.node{transition:none}
+@media(max-width:880px){.study-mode .app{height:auto;overflow:visible}.study-mode .layout{height:auto;display:block}.study-mode .main{height:620px}.study-banner-top{align-items:flex-start}}
+
+.study-cue-ratings{width:100%;background:#fff;border:1px solid #d3e0e9;border-radius:10px;padding:10px;display:grid;gap:8px}
+.study-cue-ratings .fine{font-size:11px;color:#64798a}
+.study-rating-grid{display:grid;grid-template-columns:repeat(4,minmax(125px,1fr));gap:8px}
+.study-rating-grid label{font-size:11px}.study-rating-grid select{margin-top:4px;width:100%}
+.study-cue-ratings textarea{min-height:37px;width:100%}
+.study-answer-stage .layout{pointer-events:none;user-select:none;opacity:.75}
+@media(max-width:900px){.study-rating-grid{grid-template-columns:repeat(2,minmax(135px,1fr))}}
+
+/* Embedding in the guided online participant journey; only outer portal controls phases. */
+.study-embedded #studyBanner{display:none!important}
+.study-embedded .app{height:100vh!important}
+.study-embedded header{min-height:58px;flex-basis:58px;padding-top:8px;padding-bottom:8px}
+.study-embedded .brand .subtitle{display:none}
+.study-embedded .brand h1{font-size:15px}
+
+.study-embedded .left-panel{padding:10px}
+.study-embedded .persistent-post-title{padding:10px 12px}
+.study-embedded .detail-content{padding:12px}
+.study-embedded .view-toolbar{min-height:44px;padding:5px 10px}
+
+/* V3.4: the full research-post title is permanently visible in the reading panel.
+   The title occupies no space in the radial visualization column. */
+.right-panel{display:flex;flex-direction:column;overflow:hidden;padding:0}
+.persistent-post-title{flex:0 0 auto;padding:16px 19px 14px;background:#f8fbfd;border-bottom:1px solid var(--line);min-height:0;overflow-wrap:anywhere}
+.post-title-label{display:block;font-size:10px;font-weight:750;letter-spacing:.065em;text-transform:uppercase;color:#6e8295;margin-bottom:7px}
+.post-title-text{margin:0;font-size:14px;font-weight:750;line-height:1.43;letter-spacing:-.015em;color:#243b51;overflow-wrap:anywhere}
+.detail-content{min-height:0;flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;padding:18px 19px 20px;background:#fff}
+@media(max-width:1190px){.persistent-post-title{padding:13px 13px 11px}.detail-content{padding:14px 13px}}
+@media(max-width:880px){.right-panel{min-height:220px}.persistent-post-title{position:relative}}
+@media(max-width:570px){.right-panel{min-height:320px;max-height:500px}}
+
+/* V3.5: No redundant toolbar above the radial graph during practice or evaluation.
+   Use the already-present in-tree + / - / Fit controls instead. */
+.study-mode .view-toolbar{display:none!important}
+
+/* V3.6: The outer study portal is the only page-level header. The embedded
+   viewer keeps its three-panel content, but not its duplicate logo/header. */
+.study-embedded header{display:none!important}
+.study-embedded .app{height:100vh!important;min-height:0!important}
+.study-embedded .layout{flex:1 1 0!important;min-height:0!important;height:100%!important}
+
+
+/* V3.7: embedded study view is decluttered for a clearer landing view. */
+.study-embedded .left-panel{padding:8px 10px}
+.study-embedded .left-panel .section-kicker{margin-bottom:6px;font-size:10px}
+.study-embedded .counts{gap:6px}
+.study-embedded .stat{padding:7px 8px}
+.study-embedded .stat strong{font-size:16px}
+.study-embedded .stat span{font-size:9px}
+.study-embedded .left-panel .sep{margin:10px 0}
+.study-embedded .left-panel .note{display:none}
+.study-embedded .left-panel .hint{padding:9px;font-size:10px;line-height:1.4}
+.study-embedded .overlay-caption{display:none!important}
+.study-embedded .view-area{background:radial-gradient(circle at 50% 49%,#fff 6%,#f7fbfe 100%)}
+.study-embedded .layout{grid-template-columns:235px minmax(0,1fr) 320px}
+.study-embedded .persistent-post-title{padding:10px 12px 9px}
+.study-embedded .post-title-text{font-size:13px;line-height:1.34}
+.study-embedded .detail-content{padding:12px}
+.study-embedded .detail-content .section-kicker:first-child{margin-top:0}
+@media(max-width:1190px){.study-embedded .layout{grid-template-columns:210px minmax(0,1fr) 280px}}
+
+
+/* V3.8: original study post metadata is reduced to one score field.
+   Original comments, their parent controls and replies remain available. */
+.study-embedded .compact-score{display:flex;align-items:center;justify-content:space-between;gap:9px;margin:0 0 10px;padding:9px 10px;background:#f1f6fa;border:1px solid #e1eaf1;border-radius:8px}
+.study-embedded .compact-score span{font-size:11px;font-weight:600;color:#60768b}
+.study-embedded .compact-score strong{font-size:15px;color:#183e5c;font-variant-numeric:tabular-nums}
+.study-embedded .detail-content .subheading{margin-top:11px;margin-bottom:7px}
+.study-embedded .detail-content .info-title{font-size:15px;margin:0 0 8px}
+.study-embedded .detail-content .comment-body{margin-top:6px}
+
+
+/* V3.9: keep source context continuous, give the radial tree a true auto-fit
+   on delayed iframe resize, and keep the post score with left-hand statistics. */
+.discussion-stat-heading{display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
+.post-score-inline{display:none;font-size:10px;line-height:1.25;letter-spacing:0;font-weight:650;text-transform:none;color:#4f6a81;background:#edf3f8;border:1px solid #e3edf4;border-radius:5px;padding:4px 6px;font-variant-numeric:tabular-nums}
+.study-embedded .post-score-inline{display:inline-block}
+.study-embedded .discussion-stat-heading{margin:0 0 8px}
+.persistent-post-context{flex:0 0 auto;min-height:0;padding:10px 19px;background:#fff;border-bottom:1px solid var(--line)}
+.post-context-label{display:block;font-size:10px;font-weight:750;color:#778b9e;letter-spacing:.045em;text-transform:uppercase;margin-bottom:5px}
+.post-context-body{font-size:12px;line-height:1.48;white-space:pre-wrap;overflow-wrap:anywhere;max-height:105px;overflow-y:auto;color:#394e62;overscroll-behavior:contain}
+.post-context-empty{color:#8291a0;font-size:11px;font-style:italic}
+.study-embedded .persistent-post-context{padding:9px 12px 9px}
+.study-embedded .post-context-label{font-size:9px;margin-bottom:3px}
+.study-embedded .post-context-body{font-size:11px;max-height:85px;line-height:1.35}
+.study-embedded .post-context-empty{font-size:10px}
+.study-embedded .inspector-guide{font-size:11px;line-height:1.5;color:#5e7387;margin:0 0 8px}
+.selected-comment-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.selected-comment-heading .section-kicker{margin-bottom:3px}
+.selected-comment-heading .info-title{margin:0}
+.comment-score{flex-shrink:0;font-size:11px;font-weight:650;color:#56758d;font-variant-numeric:tabular-nums}
+.study-embedded .detail-content{padding-top:11px}
+@media(max-width:1190px){.persistent-post-context{padding:9px 13px}}
+
+
+/* V4.0 — stable tree, independent visual channels, inline threaded context. */
+#treeSvg .nodes circle.node.missing{fill:#eef2f6!important;stroke:#d8e1e9!important;stroke-width:1!important;stroke-dasharray:none!important;opacity:.52}
+#treeSvg .nodes circle.node.missing:hover{stroke:#7b93a8!important;opacity:.9}
+#treeSvg .nodes circle.url-ring{fill:none;stroke:#168a79;stroke-width:2.2;pointer-events:none}
+#treeSvg .nodes circle.quote-ring{fill:none;stroke:#ce5b86;stroke-width:2;stroke-dasharray:3 2;pointer-events:none}
+.swatch.link{background:#fff;border:2px solid #168a79}
+.swatch.quote{background:#fff;border:2px dashed #ce5b86}
+.swatch.question{background:#d19437}
+.conversation-section-head{margin:3px 0 10px}
+.conversation-stack{display:grid;gap:8px}
+.conversation-card{border:1px solid #dce5ed;border-left:3px solid #a8b7c4;border-radius:8px;background:#fff;padding:9px 10px;margin-left:calc(var(--reply-indent)*10px);min-width:0;overflow-wrap:anywhere}
+.conversation-card.ancestor{border-left-color:#dbad65;background:#fbfcfd}
+.conversation-card.current{border-left:4px solid #d48b2e;background:#f5f9fc;border-color:#c7ddeb;border-left-color:#d48b2e}
+.conversation-card.unavailable{opacity:.68;background:#f7f9fb;border-left-color:#dae1e7}
+.conversation-card-head{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:7px;min-width:0}
+.conversation-select{background:none;border:0;padding:0;display:inline;color:#245879;text-align:left;font-weight:750;font-size:12px;max-width:75%;overflow-wrap:anywhere}
+.conversation-select:hover{background:none;text-decoration:underline}
+.conversation-body{font-size:12px;line-height:1.48;white-space:pre-wrap;overflow-wrap:anywhere;color:#263c50}
+.conversation-card .comment-score{font-size:10px;white-space:nowrap;font-weight:550}
+.conversation-cues{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.cue-chip{font-size:10px;padding:2px 6px;border-radius:10px;background:#eef3f7;color:#4d6275}
+.cue-chip.question{background:#fff1dc;color:#936316}
+.cue-chip.url{background:#e4f4f1;color:#168a79}
+.cue-chip.quote{background:#faeaf0;color:#ac4568}
+.reading-replies{margin:13px 0 3px}
+.reading-replies>summary{cursor:pointer;font-size:12px;font-weight:750;color:#2a536f;padding:8px 4px;border-bottom:1px solid #e5edf4;line-height:1.4}
+.reading-only{font-size:10px;color:#6e879c;font-weight:500}
+.reply-stack{padding-top:10px}
+.no-followups{font-size:11px;color:#8190a0;margin-top:15px}
+.load-more-replies{width:100%;margin-top:9px;font-size:11px}
+.study-embedded .detail-content{padding:10px 10px 16px}
+.study-embedded .conversation-card{padding:8px;margin-left:calc(var(--reply-indent)*8px)}
+.study-embedded .conversation-body{font-size:11px;line-height:1.42}
+.study-embedded .conversation-select{font-size:11px}
+.study-embedded .conversation-stack{gap:7px}
+
+/* Separate search-result highlighting from question-mark amber and cue rings. */
+#treeSvg .nodes circle.node.hit{stroke:#203f5b;stroke-width:3}
+
+/* V4.2: one colored circle per comment; secondary cues are internal sectors,
+   never external concentric outlines. Selection remains clearly bounded. */
+#treeSvg .nodes path.cue-sector{pointer-events:none;stroke:none}
+.study-embedded .left-panel .swatch.quote,.swatch.quote{background:#ce5b86}
+.study-embedded .left-panel .swatch.link,.swatch.link{background:#168a79}
+.study-embedded .left-panel .swatch.question,.swatch.question{background:#d19437}
+.conversation-card.current{scroll-margin-top:10px}
+
+
+/* V4.5 — Same dashboard left pane now begins with the task and response box.
+   Only the evaluation iframe gets this treatment. Practice stays unchanged. */
+.study-embedded.study-task-mounted .layout{grid-template-columns:300px minmax(0,1fr) 320px}
+.study-embedded.study-task-mounted .left-panel{padding:10px 12px}
+.study-embedded.study-task-mounted .embedded-task-card{
+ display:block;background:#f3f8fc;border:1px solid #cbddea;border-radius:10px;
+ padding:12px 11px 13px;margin:0 0 14px;color:#243d52;
+}
+.study-embedded.study-task-mounted .embedded-task-card .eyebrow{
+ display:block;font-weight:800;color:#35719a;font-size:10px;letter-spacing:.09em;
+ text-transform:uppercase;margin:0 0 5px;
+}
+.study-embedded.study-task-mounted .embedded-task-card h2{
+ font-size:15px;line-height:1.3;margin:0 0 9px;color:#203c55;
+}
+.study-embedded.study-task-mounted .embedded-task-card p{
+ font-size:12px;line-height:1.5;color:#3d556a;margin:0 0 10px;
+}
+.study-embedded.study-task-mounted .embedded-task-card label{
+ display:block;font-size:12px;font-weight:700;line-height:1.4;
+ color:#263e53;margin:9px 0 5px;
+}
+.study-embedded.study-task-mounted .embedded-task-card textarea{
+ display:block;width:100%;box-sizing:border-box;border-radius:8px;
+ border:1px solid #c3d2df;background:#fff;color:#162437;
+ min-height:88px;max-height:240px;padding:9px 10px;font:inherit;
+ font-size:12px;line-height:1.5;resize:vertical;margin:0;
+}
+.study-embedded.study-task-mounted .embedded-task-card textarea:focus-visible,
+.study-embedded.study-task-mounted .embedded-task-card button:focus-visible{
+ outline:3px solid #8db9e1;outline-offset:2px;
+}
+.study-embedded.study-task-mounted .embedded-task-card .task-capture{
+ display:grid;grid-template-columns:1fr;gap:5px;margin:10px 0;
+}
+.study-embedded.study-task-mounted .embedded-task-card .task-capture button{
+ width:100%;padding:7px 8px;font-size:11px;justify-content:center;
+}
+.study-embedded.study-task-mounted .embedded-task-card .task-capture code{
+ width:100%;display:block;overflow-wrap:anywhere;font-size:10px;
+ background:#e3edf5;padding:6px 8px;border-radius:6px;
+}
+.study-embedded.study-task-mounted .embedded-task-card .error{
+ color:#a62f29;font-size:11px;line-height:1.4;margin:8px 0 0;
+}
+@media(max-width:1220px){
+ .study-embedded.study-task-mounted .layout{grid-template-columns:275px minmax(0,1fr) 285px}
+}
+@media(max-width:990px){
+ .study-embedded.study-task-mounted .layout{grid-template-columns:245px minmax(0,1fr) 260px}
+}
+@media(max-width:880px){
+ .study-embedded.study-task-mounted .layout{display:grid;grid-template-columns:235px minmax(0,1fr)}
+ .study-embedded.study-task-mounted .right-panel{grid-column:1/-1;max-height:350px}
+}
+
+
+/* V4.8: accessible, always-visible radial-tree key without large extra toolbars. */
+.visual-legend{position:absolute;top:10px;left:12px;z-index:3;display:flex;flex-wrap:wrap;align-items:center;gap:5px 10px;max-width:min(88%,630px);padding:6px 9px;background:rgba(255,255,255,.95);border:1px solid #dde7f0;border-radius:9px;box-shadow:0 2px 8px #18395010;color:#485d72;font-size:10px;line-height:1.2}
+.legend-item{position:relative;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;cursor:help;border-radius:3px;outline-offset:2px}
+.legend-dot{width:10px;height:10px;display:inline-block;border-radius:100%;flex:0 0 10px;background:#477fae}
+.legend-dot.legend-root{background:#203f5b}
+.legend-dot.legend-question{background:#d19437}
+.legend-dot.legend-url{background:#168a79}
+.legend-dot.legend-quote{background:#ce5b86}
+.legend-dot.legend-multi{background:conic-gradient(#168a79 0 50%, #d19437 50% 100%)}
+.legend-dot.legend-missing{background:#edf1f4;border:1.8px dashed #70859b}
+.legend-note{white-space:nowrap;font-weight:650;color:#3c6f8d;cursor:help}
+.legend-item:hover:after,.legend-item:focus-visible:after,.legend-note:hover:after,.legend-note:focus-visible:after{content:attr(data-help);position:absolute;z-index:12;top:19px;left:0;max-width:270px;min-width:200px;white-space:normal;background:#183550;color:white;border-radius:6px;padding:8px 10px;box-shadow:0 6px 18px #1115;font-size:11px;line-height:1.4;pointer-events:none}
+.study-embedded .visual-legend{top:7px;left:7px;padding:5px 7px;max-width:min(91%,520px);font-size:9px;gap:4px 8px}
+/* Show unavailable comments as contextual bridges, not faded/deprioritized content. */
+#treeSvg .nodes circle.node.missing{fill:#edf1f4!important;stroke:#71889f!important;stroke-width:1.6!important;stroke-dasharray:2 2!important;opacity:1!important}
+.conversation-card.unavailable{opacity:1;background:#f7fafc;border-left:3px dashed #8198aa}
+.conversation-card.unavailable .conversation-body{font-style:italic;color:#5e7389}
+.missing-explanation{font-size:10px;color:#5e7389;background:#edf3f7;padding:5px 7px;border-radius:5px;margin:7px 0 0;line-height:1.45}
+.tooltip-missing{color:#dcebf3;margin-top:5px;border-top:1px solid #ffffff40;padding-top:5px}
+/* Filters before search are easy to notice; keep the sidebar independently scrollable. */
+.study-embedded .cue-buttons button{padding:6px 7px}
+.study-embedded .cue-search-separator{margin:9px 0}
+@media(max-width:700px){.visual-legend{font-size:9px;max-width:94%}}
+
+/* V4.8.1: one hover/focus explanation per legend item; native title tooltips are removed. */
+.legend-note{position:relative;outline-offset:2px}
+
+
+/* V4.8.2: cue-filter hover/focus help is a single fixed overlay, not a
+   browser-native title popup. It stays readable outside the scrolling sidebar. */
+.cue-filter-help-popup{position:fixed;z-index:1000;width:270px;max-width:calc(100vw - 20px);padding:10px 12px;border-radius:8px;background:#183550;color:white;font-size:12px;line-height:1.5;box-shadow:0 9px 24px #10263835;pointer-events:none;text-align:left;font-weight:450}
+.cue-filter-help-popup[hidden]{display:none!important}
+.visually-hidden-cue{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}

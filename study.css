@@ -1,0 +1,286 @@
+/* Discussion Atlas V4.4 — unified reader-study visual language.
+   Mirrors the regular viewer's navy / white / slate palette, logo,
+   typography, thin panel borders, and compact navigation conventions.
+   All functionality remains in study.js and embedded app.js. */
+:root {
+  color-scheme: light;
+  --ink:#162437; --muted:#657587; --line:#dfe6ee;
+  --paper:#fff; --wash:#f5f8fb; --navy:#183550;
+  --blue:#3778ab; --pale:#eef3f7; --note:#f4f8fb;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size:14px; color:var(--ink); background:var(--wash);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;}
+body{background:var(--wash)}
+.shell{width:100%;max-width:none;margin:0;padding:0 clamp(12px,1.25vw,24px)}
+header{height:78px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--paper);border-bottom:1px solid var(--line);}
+header .brand{display:flex;align-items:center;gap:13px;min-width:0}
+.logo{height:43px;width:43px;flex:0 0 43px;border-radius:13px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:25px;line-height:1}
+.brand-copy{min-width:0}
+.brand strong{font-size:18px;line-height:1.2;letter-spacing:-.025em;display:block;white-space:nowrap}
+.brand-mode{font-size:16px;font-weight:400;color:#8393a1}
+.brand small{display:block;margin-top:4px;font-size:11px;color:var(--muted);letter-spacing:0}
+.header-right{display:flex;align-items:center;justify-content:flex-end;gap:10px;min-width:0}
+.stepper{font-size:12px;color:#3b5a70;background:var(--pale);border-radius:99px;padding:7px 12px;white-space:nowrap;font-weight:700}
+.header-right .trial-only{display:none}
+body[data-screen="trial"] .header-right .trial-only{display:inline-flex;align-items:center;justify-content:center}
+.timer{font-variant-numeric:tabular-nums;font-family:ui-monospace,"Cascadia Code",Consolas,monospace;font-size:12px;min-width:56px;background:#f4f8fb;padding:8px;border-radius:7px;text-align:center;color:#2b4b64;white-space:nowrap}
+main{padding:18px 0 24px;min-width:0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:13px;margin:0 auto 18px;box-shadow:none;min-width:0}
+.hidden{display:none!important}
+.visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+h1{margin:0 0 17px;color:var(--ink);font-size:24px;line-height:1.25;letter-spacing:-.032em}
+h2{font-size:16px;line-height:1.4;margin:22px 0 9px;letter-spacing:-.015em}
+h3{font-size:14px;margin:0 0 13px}
+p{color:#3e5468;line-height:1.65;margin:0 0 15px}
+li{margin:0}
+.eyebrow,.section-kicker{font-size:11px;text-transform:uppercase;letter-spacing:.11em;font-weight:750;color:#57819c;margin-bottom:9px;line-height:1.3}
+.small{font-size:12px;color:var(--muted);line-height:1.65}
+.note{background:var(--note);border:1px solid #e4edf4;border-radius:10px;padding:13px 15px;margin:15px 0;color:#425d73;font-size:12px;line-height:1.65}
+button{background:#fff;border:1px solid #d2dce6;border-radius:9px;color:#27435e;padding:10px 14px;font-size:12px;font-weight:650;cursor:pointer;font-family:inherit;min-height:35px;transition:background .12s,border-color .12s}
+button:hover{background:#edf3f8}
+button:disabled{opacity:.55;cursor:not-allowed}
+button.primary{background:var(--navy);color:white;border-color:var(--navy)}
+button.primary:hover{background:#234d72}
+button:focus-visible,select:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid #8db9e1;outline-offset:2px}
+.actions{display:flex;gap:10px;align-items:center;justify-content:flex-end;flex-wrap:wrap;margin-top:22px}
+.actions .small{margin-right:auto}
+label{display:block;font-size:12px;font-weight:650;color:#34495f;margin-top:15px}
+input[type="text"],textarea,select{display:block;width:100%;margin:7px 0 13px;border:1px solid #d7e0e9;border-radius:9px;background:#fff;color:var(--ink);padding:10px 12px;font:inherit;font-size:13px}
+textarea{min-height:72px;resize:vertical}
+select{min-height:39px}
+.error,.failure{font-size:12px;color:#aa362a;margin:10px 0}
+.success{color:#177755}
+code{font-family:ui-monospace,monospace;overflow-wrap:anywhere}
+
+/* Dashboard-style information screens — parallel to regular viewer panels. */
+.atlas-stage{display:grid;grid-template-columns:260px minmax(0,1fr);width:min(100%,1320px);min-height:min(690px,calc(100dvh - 140px));overflow:hidden}
+.stage-rail{background:#fafcfe;border-right:1px solid var(--line);padding:26px 20px;display:flex;flex-direction:column;gap:0}
+.stage-rail h3{font-size:17px;margin:0 0 23px;letter-spacing:-.015em}
+.stage-steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.stage-steps li{display:flex;align-items:center;gap:10px;padding:10px 9px;border:1px solid transparent;border-radius:9px;font-size:12px;color:#697f90;font-weight:550;line-height:1.3}
+.stage-steps li.current{border-color:#c7dcec;background:#ebf5fb;color:#204f73;font-weight:700}
+.stage-step-number{display:grid;place-items:center;background:#edf2f6;border:1px solid #e0e8ef;border-radius:7px;min-width:28px;height:28px;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#6a8090}
+.current .stage-step-number{background:#fff;color:#245d85;border-color:#b7d1e4}
+.stage-rail-foot{margin-top:auto;border-top:1px solid var(--line);padding-top:18px;color:#566a7b}
+.stage-rail-foot strong{font-size:12px;color:#294764}
+.stage-rail-foot p{font-size:11px;color:#6b7f90;margin:6px 0 0;line-height:1.55}
+.stage-content{padding:42px clamp(28px,5.2vw,80px) 40px;max-width:1050px;width:100%;min-width:0}
+.stage-content>p,.stage-content>ul,.stage-content>.note,.stage-content>.data-info{max-width:800px}
+.stage-content .eyebrow{margin-bottom:12px}
+.stage-content>h1{font-size:27px;max-width:750px}
+.stage-content .check{margin-top:18px;padding:14px 15px;background:#f8fbfd;border:1px solid #e3eaf1;border-radius:10px;display:flex;align-items:flex-start;gap:12px;max-width:810px;font-size:12px;line-height:1.6}
+.stage-content .check input{margin:3px 0 0;flex-shrink:0;accent-color:#235d83}
+.stage-content .check+.actions{max-width:810px}
+.participant-code{background:#f7f9fc;max-width:810px;padding:12px 15px;border-left:3px solid #5d91b4;border-radius:4px;margin:17px 0;font-size:13px}
+.participant-code code{font-weight:800;color:#204d6c}
+.data-heading{font-size:13px;color:#355b77;letter-spacing:0;margin:25px 0 8px}
+.data-info{font-size:12px;color:#647587;padding-bottom:4px}
+.intro-options{list-style:none;padding:0;display:grid;gap:10px;margin:20px 0}
+.intro-options li{border:1px solid #e1e9f0;border-radius:9px;background:#fbfcfe;padding:13px 15px;font-size:13px;line-height:1.6;color:#485c70}
+.intro-options strong{color:#234b69}
+.stage-content .actions{max-width:810px}
+
+/* Practice is the real dashboard with a guided left rail, not a large survey card. */
+body[data-screen="practice"] main{padding:12px 0}
+.atlas-practice{width:100%;overflow:hidden;margin:0}
+.practice-grid{display:grid;grid-template-columns:282px minmax(0,1fr);height:calc(100dvh - 103px);min-height:590px}
+.practice-guide{background:#fff;border-right:1px solid var(--line);padding:25px 18px;display:flex;flex-direction:column;overflow:auto;min-height:0}
+.practice-guide .eyebrow{margin-bottom:12px}
+.practice-guide h1{font-size:20px;line-height:1.3;margin-bottom:17px}
+.practice-guide>p:not(.practice-status){font-size:12px;line-height:1.7;color:#455f72}
+.practice-guide>.note{padding:11px 12px;font-size:11px;margin-top:17px}
+.practice-status{order:-1;display:inline-flex;align-self:flex-start;background:#ebf5fb;border:1px solid #c7dcec;color:#335f80;font-weight:700;font-size:11px;padding:7px 10px;border-radius:25px;margin:0 0 15px}
+.practice-guide>.actions{margin-top:auto;padding-top:20px}
+.practice-guide>.actions .primary{width:100%;justify-content:center;text-align:center;line-height:1.3}
+.practice-preview{display:flex;flex-direction:column;min-width:0;min-height:0;background:#f7f9fb}
+.preview-heading{flex:0 0 auto;height:47px;display:flex;align-items:center;justify-content:space-between;padding:0 15px;gap:10px;border-bottom:1px solid var(--line);background:#fff;font-size:12px;font-weight:700;color:#345872}
+.practice-label{display:inline-flex;border:1px solid #dce6ee;background:#f5f8fb;border-radius:99px;padding:5px 9px;font-size:10px;font-weight:700;white-space:nowrap;color:#6a7f90}
+.viewer-frame{height:min(62vh,680px);min-height:440px;background:#fff;border:1px solid #d4dfe8;border-radius:10px;overflow:hidden}
+.viewer-frame iframe{height:100%;width:100%;border:0;display:block}
+.practice-preview>.viewer-frame{flex:1 1 auto;height:auto;min-height:0;border:0;border-radius:0}
+
+/* Evaluation: same header, paper surfaces, and controls, with as much room as possible for tree. */
+body[data-screen="trial"] header{height:60px}
+body[data-screen="trial"] .logo{height:37px;width:37px;flex-basis:37px;border-radius:11px;font-size:23px}
+body[data-screen="trial"] .brand strong{font-size:15px}
+body[data-screen="trial"] .brand-mode{font-size:14px}
+body[data-screen="trial"] .brand small{font-size:10px;margin-top:2px}
+body[data-screen="trial"] main{padding:9px 0 0}
+body[data-screen="trial"] #trial{height:calc(100dvh - 74px);min-height:545px;display:flex;flex-direction:column;padding:10px 12px;border-radius:11px;overflow:hidden;margin:0}
+body[data-screen="trial"] .task-card{flex:0 0 auto;background:#f8fbfd;border:1px solid #dfe8f0;border-radius:9px;padding:10px 13px;margin:0 0 8px}
+body[data-screen="trial"] .task-card .eyebrow{font-size:10px;margin-bottom:3px}
+body[data-screen="trial"] .task-card h2{font-size:14px;line-height:1.25;margin:0 0 5px}
+body[data-screen="trial"] .task-card p{font-size:12px;color:#3e5468;line-height:1.45;margin:0 0 7px;max-width:125ch}
+body[data-screen="trial"] .task-card label{font-size:12px;margin:4px 0 0}
+body[data-screen="trial"] .task-card textarea{font-size:12px;padding:8px 10px;min-height:47px;max-height:80px;margin:5px 0 0}
+body[data-screen="trial"] .task-card .small{display:none}
+body[data-screen="trial"] .trial-viewer{flex:1 1 auto;min-height:185px;height:auto;margin:0;border-radius:8px}
+body[data-screen="trial"] .header-right{gap:9px}
+body[data-screen="trial"] #taskNext{padding:9px 14px;font-size:12px;white-space:nowrap}
+.task-capture{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:9px 0 2px}
+.task-capture button{font-size:11px;padding:7px 10px}
+.task-capture code{background:#e9f0f5;border-radius:5px;padding:7px 10px;font-size:11px;color:#486178}
+
+/* Feedback controls — visually consistent with the viewer's list styling. */
+.rating-form{max-width:860px}
+.rating{display:grid;grid-template-columns:minmax(0,1fr) minmax(270px,auto);gap:22px;align-items:center;border-bottom:1px solid var(--line);padding:15px 0}
+.rating>div:first-child{font-size:13px;color:#344b61;line-height:1.45;font-weight:600}
+.scale{display:flex;align-items:center;gap:16px;justify-content:flex-end}
+.scale label{margin:0;color:#728397;display:flex;flex-direction:column-reverse;align-items:center;gap:5px;font-size:11px;font-weight:500;min-width:25px}
+.scale input{margin:0;accent-color:#245d87;cursor:pointer;width:15px;height:15px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:17px}
+#specificCues{margin-top:25px;border-top:1px solid var(--line);padding-top:15px}
+#searchRatingItem .rating{margin-top:7px}
+#submitMessage{font-weight:650;font-size:12px;margin-top:12px}
+
+@media(max-width:1000px){
+  .atlas-stage{grid-template-columns:212px minmax(0,1fr)}
+  .stage-rail{padding:23px 13px}
+  .stage-content{padding:28px 27px 35px}
+  .practice-grid{grid-template-columns:235px minmax(0,1fr)}
+  .practice-guide{padding:18px 13px}
+  .practice-guide h1{font-size:18px}
+  .brand small{font-size:10px}
+}
+@media(max-width:760px){
+  header{min-height:70px;height:auto;padding:10px 0;flex-wrap:wrap}
+  header .brand strong{font-size:16px}
+  .brand-mode{font-size:14px}
+  .brand small{font-size:10px}
+  .logo{height:38px;width:38px;flex-basis:38px}
+  .shell{padding:0 9px}
+  main{padding:11px 0 20px}
+  .atlas-stage{display:block;min-height:0}
+  .stage-rail{display:none}
+  .stage-content{padding:22px 17px}
+  .stage-content>h1{font-size:22px}
+  .practice-grid{display:flex;flex-direction:column;height:auto;min-height:0}
+  .practice-guide{display:block;overflow:visible}
+  .practice-guide h1{margin-bottom:8px}
+  .practice-guide>.actions{margin-top:10px;padding-top:0}
+  .practice-preview{min-height:560px}
+  .practice-preview>.viewer-frame{min-height:540px;height:70vh}
+  .grid-2,.rating{grid-template-columns:1fr}
+  .rating{gap:10px}
+  .scale{justify-content:space-between}
+  body[data-screen="trial"] header{min-height:66px;height:auto}
+  body[data-screen="trial"] .header-right{flex-wrap:wrap;gap:5px}
+  body[data-screen="trial"] #taskNext{padding:8px 9px;white-space:normal}
+  body[data-screen="trial"] main{padding:7px 0}
+  body[data-screen="trial"] #trial{min-height:0;height:auto;overflow:visible;padding:9px}
+  body[data-screen="trial"] .trial-viewer{flex:none;height:70vh;min-height:480px}
+}
+@media(max-width:485px){
+  .brand small{max-width:260px;white-space:normal;line-height:1.3}
+  .stepper{font-size:10px;padding:6px 8px}
+  body[data-screen="trial"] .brand small{display:none}
+  body[data-screen="trial"] .brand-mode{display:none}
+  .header-right{flex-wrap:wrap}
+  .practice-label{display:none}
+  .rating>div:first-child{font-size:12px}
+}
+
+
+/* V4.5 — Evaluation instructions & response field live inside the actual
+   viewer's left sidebar, restoring the full-height radial visualization. */
+body[data-screen="trial"] main{padding:5px 0 0}
+body[data-screen="trial"] #trial{height:calc(100dvh - 70px);min-height:545px;padding:5px 7px}
+body[data-screen="trial"] #taskCardHome{display:none!important}
+body[data-screen="trial"] #trial>.trial-viewer{flex:1 1 0;min-height:0;height:auto;margin:0;border:1px solid #dfe6ee;border-radius:9px}
+@media(max-width:760px){
+ body[data-screen="trial"] #trial{height:auto;min-height:0;padding:7px}
+ body[data-screen="trial"] #trial>.trial-viewer{flex:none;height:80vh;min-height:580px}
+}
+
+
+/* V4.6 — The same full-bleed dashboard grid and top-right navigation across
+   study welcome, practice, introduction, both trials, feedback and completion. */
+:root{--study-header-height:70px}
+html,body{width:100%;overflow-x:hidden}
+.shell{padding:0;max-width:none;width:100%;margin:0}
+header,body[data-screen="trial"] header{
+ height:var(--study-header-height);min-height:var(--study-header-height);
+ padding:0 20px;margin:0;width:100%;
+}
+body[data-screen="trial"] .logo{height:43px;width:43px;flex-basis:43px;border-radius:13px;font-size:25px}
+body[data-screen="trial"] .brand strong{font-size:18px}
+body[data-screen="trial"] .brand-mode{font-size:16px}
+body[data-screen="trial"] .brand small{font-size:11px;margin-top:4px}
+.header-right{gap:9px;flex-shrink:0}
+.header-action-slot{display:inline-flex;align-items:center;gap:8px}
+.header-action-slot:empty{display:none}
+.header-action-slot button{white-space:nowrap;margin:0}
+.header-secondary-slot button{background:#f8fafc}
+/* The relocated controls are the actual original buttons; never leave an
+   unused bottom action-row spacer behind. */
+.actions:empty,.stage-content .actions:empty,.practice-guide .actions:empty{display:none!important}
+main,body[data-screen="practice"] main,body[data-screen="trial"] main{
+ padding:0;margin:0;width:100%;
+}
+.card{margin:0;box-shadow:none;border-radius:0;border:0;border-bottom:1px solid var(--line)}
+.atlas-stage{width:100%;max-width:none;min-height:calc(100dvh - var(--study-header-height));grid-template-columns:268px minmax(0,1fr);overflow:visible}
+.stage-rail{padding:28px 20px}
+.stage-content{
+ max-width:none;width:100%;
+ padding:30px clamp(25px,3vw,58px) 32px;
+}
+.stage-content>p,.stage-content>ul,.stage-content>.note,.stage-content>.data-info{max-width:none}
+.stage-content>h1{max-width:none}
+.stage-content .check,.participant-code,.stage-content .actions{max-width:none}
+/* Use the screen width meaningfully without stretching long paragraphs into
+   inaccessible line lengths. Consent text and contextual guidance occupy
+   separate logical columns on wide displays. */
+/* V4.7 — Consent information belongs to the same reading sequence as
+   the welcome instructions, not in a separate right-hand column. */
+@media(min-width:1250px){
+ #welcome .stage-content{display:flex;flex-direction:column;align-items:flex-start}
+ #welcome .stage-content>.eyebrow,
+ #welcome .stage-content>h1,
+ #welcome .stage-content>p,
+ #welcome .stage-content>.note,
+ #welcome .stage-content>.data-heading,
+ #welcome .stage-content>.check{width:100%;max-width:1120px}
+ #welcome .stage-content>.data-heading{margin:15px 0 6px}
+ #welcome .stage-content>.data-info{max-width:1120px;margin:0 0 12px;line-height:1.65}
+ #welcome .stage-content>.check{margin-top:10px}
+}
+.atlas-practice,.practice-grid{width:100%;max-width:none}
+.practice-grid{height:calc(100dvh - var(--study-header-height));min-height:540px;grid-template-columns:268px minmax(0,1fr)}
+.practice-guide{padding:22px 17px}
+.practice-guide>.actions:empty{display:none!important}
+/* The post context is already in the reading panel. Keep practice directly
+   beside the viewer rather than adding another row above it. */
+.preview-heading{display:none}
+.practice-preview>.viewer-frame{border:0;border-radius:0}
+body[data-screen="trial"] #trial{
+ height:calc(100dvh - var(--study-header-height));min-height:540px;
+ margin:0;padding:0;border:0;border-radius:0;overflow:hidden;
+}
+body[data-screen="trial"] #trial>.trial-viewer{
+ height:100%;flex:1 1 0;margin:0;border:0;border-radius:0;min-height:0;
+}
+.rating-form{max-width:none}
+/* Keep two-column questionnaires readable while using the available space. */
+.rating{max-width:none}
+.grid-2{max-width:100%}
+@media(max-width:1000px){
+ .atlas-stage{grid-template-columns:228px minmax(0,1fr)}
+ .practice-grid{grid-template-columns:228px minmax(0,1fr)}
+ .stage-content{padding:25px 23px}
+}
+@media(max-width:760px){
+ header,body[data-screen="trial"] header{height:auto;min-height:70px;padding:9px 12px;flex-wrap:wrap;gap:8px}
+ .header-right{flex-wrap:wrap;justify-content:flex-end;gap:6px}
+ .header-action-slot button{white-space:normal;font-size:11px;padding:7px 9px}
+ .atlas-stage{display:block;min-height:0}
+ .stage-content{padding:20px 17px}
+ .stage-rail{display:none}
+ .practice-grid{display:flex;flex-direction:column;height:auto;min-height:0}
+ .practice-guide{display:block;padding:17px}
+ .practice-preview{min-height:550px}
+ .practice-preview>.viewer-frame{height:70vh;min-height:540px}
+ body[data-screen="trial"] #trial{height:auto;min-height:0;overflow:visible}
+ body[data-screen="trial"] #trial>.trial-viewer{height:78vh;min-height:560px;flex:none}
+}
